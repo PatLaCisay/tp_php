@@ -98,7 +98,7 @@
                             </div>
                             <div class="Social-NW-body">
                                 
-                                <a href="/../Controller/liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
+                                <a href="/../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
                                 <br/>
                                 <a href="/../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>

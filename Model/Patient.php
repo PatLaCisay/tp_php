@@ -22,6 +22,7 @@ class Patient {
     public $Situation_Familiale_Patient;
     public $Affiliation_Mutuelle;
     public $Date_Creation_Dossier;
+    public $Id_medecin;
     
     /**
      * 
@@ -36,6 +37,14 @@ class Patient {
      */
     public function getId_Patient() {
         return $this->Id_Patient;
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public function getId_Medecin() {
+        return $this->Id_medecin;
     }
 
     /**
