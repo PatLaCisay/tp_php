@@ -9,6 +9,9 @@
 include '../Model/Utilisateur.php';
 include '../Model/Secretaire.php';
 include '../Model/Medecin.php';
+include '../Model/Salle.php';
+include '../Model/RendezVous.php';
+include '../Model/Patient.php';
 
 class Util {
     
@@ -190,6 +193,42 @@ class Util {
         }
         return $Medecin;
     }
+
+    /**
+     * 
+     * @param type $Id
+     * @return \Integer
+     */
+    public function getSalleById($Id){
+        $Salle = NULL;
+        
+        $Query = "SELECT * FROM salle WHERE id='".$Id."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_Id = $ligne['id'];
+                    
+                    if(($Id == $_Id))
+                    {
+                         $Salle = new Salle();
+                         $Salle->Id = $ligne['id'];
+                         $Salle->Nom = $ligne['nom'];
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $Salle;
+    }
     
     public function findAllPatients(){
         $patients=[];
@@ -238,7 +277,53 @@ class Util {
 
 
     }
-    
+    public function findAllMedecins(){
+        $medecins=[];
+
+        $Query = "SELECT * FROM medecin";
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    array_push($medecins,$ligne);
+                }
+
+            }
+        
+        }
+        return $medecins;
+
+
+    }
+
+    public function findAllSalles(){
+        $salles=[];
+
+        $Query = "SELECT * FROM salle";
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    array_push($salles,$ligne);
+                }
+
+            }
+        
+        }
+        return $salles;
+
+
+    }
     
     
     /**

@@ -14,7 +14,7 @@ class RendezVous {
      */
     public $Id_Rendez_Vous;
     public $Date_Rendez_Vous;
-    public $Salle_Rendez_Vous;
+    public $Salle_Id;
     public $Id_Patient;
     public $Id_Medecin;
     
@@ -45,8 +45,8 @@ class RendezVous {
      * 
      * @return type
      */
-    public function getSalle_Rendez_Vous() {
-        return $this->Salle_Rendez_Vous;
+    public function getSalle_Id() {
+        return $this->Salle_Id;
     }
 
     /**
@@ -67,10 +67,10 @@ class RendezVous {
 
     /**
      * 
-     * @param type $Salle_Rendez_Vous
+     * @param type $Salle_Id
      */
-    public function setSalle_Rendez_Vous($Salle_Rendez_Vous) {
-        $this->Salle_Rendez_Vous = $Salle_Rendez_Vous;
+    public function setSalle($Salle_Id) {
+        $this->Salle_Id = $Salle_Id;
     }
 
     /**

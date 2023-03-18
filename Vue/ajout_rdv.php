@@ -1,9 +1,9 @@
 <?php
 
-   require('../Controller/Util.php');
    
    
    session_start();
+   require('../Controller/Util.php');
 
     /*-- Verification si le formulaire d'authenfication a été bien saisie --*/
    if($_SESSION["acces"]!='y')
@@ -11,14 +11,15 @@
             /*-- Redirection vers la page d'authentification --*/
            header("location:index.php");
    }
-   else
-   {
+   else{
         $Util = new Util();
         $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
-        $rdvs = $Util->findAllRdv();
         $Secretaire = new Secretaire();
         $Secretaire = $Utilisateur->getSecretaire();
-        $salle = new Salle();
+
+        $patients=  $Util->findAllPatients();
+        $medecins = $Util->findAllMedecins();
+        $salles = $Util->findAllSalles();
    }
 
     
@@ -45,7 +46,7 @@
                     
                         <div class="Home-Header">
                             <div class="Slogan">
-                                
+                               
                             </div>
                             <div class="Contact-Research">
 
@@ -55,40 +56,56 @@
                             </div>
                         </div>
                         <div class="Horizontal-menu">
-                          
+                            <center>
                                 <h4>
                                     <?php
                                         echo $Secretaire->getNom_Secretaire().' '.$Secretaire->getPrenom_Secretaire();
                                    ?>
                                 </h4>
-                       
+                            </center>
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
-                                Liste des rendez-vous à venir 
+                                Ajouter un nouveau patient 
                             </div>
                             <div class="infos">
                                 
                             </div>
                             <div class="en_bref">
-                                
-                            <div>
-                                    <ul class="list-group">
-                                        <?php
-                                            if($rdvs)
-                                            {
-                                                foreach( $rdvs as $rdv){
-                                                    $salle = $Util->getSalleById($rdv['Id_Salle'])->getNom();
-                                                    echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$rdv['Date_Rendez_Vous']." / ".$salle."</p>");
-                                                    echo ("</li>");
-                                                    
-                                                }
+                                <form action="../Controller/ajout_rdv.php" method="post">
+                                    <br/>
+                                    <label>Date :</label>
+                                        <input class="textfield_form" type="date" name="date"/><br/>
+                                    <label>Salle :</label>
+                                        <select class="form-control" name="salle">
+                                        <?php foreach($salles as $salle){ 
+                                                echo '<option value="'.$salle["id"].'">';
+                                                echo $salle["nom"];
+                                                echo '</option>';
                                             }
-                                        ?>
-                                    </ul>
-                                </div>                                
-                                
+                                            ?>
+                                        </select>
+                                    <label>Patient :</label>
+                                        <select class="form-control" name="patient">
+                                        <?php foreach($patients as $patient){ 
+                                                echo '<option value="'.$patient["Id_Patient"].'">';
+                                                echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"];
+                                                echo'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    <label>Medecin :</label>
+                                        <select class="form-control" name="medecin">
+                                        <?php foreach($medecins as $medecin){ 
+                                                echo '<option value="'.$medecin['Id_Medecin'].'">';
+                                                echo $medecin['Nom_Medecin']." ".$medecin['Prenom_Medecin'];
+                                                echo'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    <input type="reset" name="effacer" value = "Effacer"/>
+                                    <input type="submit" name="valider" value = "Ajouter"/>
+                                </form>
                             </div>
                             
                             
@@ -104,7 +121,7 @@
                                 <br/>
                                 <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>
-                                <a href="../Vue/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
+                                <a href="../Controller/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
                                 <br/>
                                 <a href="../Vue/ajout_patient.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
                                 <hr/>

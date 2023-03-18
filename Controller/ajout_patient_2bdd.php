@@ -37,7 +37,7 @@
         
         else{
             if($Util->mysqli->query($Query) === TRUE) {
-                header("location: ../Vue/secretaire/secretaire_display.php");
+                header("location: ../Vue/secretaire_display.php");
             }
             else {
                 echo "Error: " . $Query . "<br/>" . $Util->mysqli->error;
