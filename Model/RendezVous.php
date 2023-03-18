@@ -69,6 +69,7 @@ class RendezVous {
      * 
      * @param type $Salle_Id
      */
+    
     public function setSalle($Salle_Id) {
         $this->Salle_Id = $Salle_Id;
     }
