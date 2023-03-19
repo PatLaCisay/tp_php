@@ -2007,6 +2007,7 @@ table {
 .table td {
   padding: 8px;
   line-height: 20px;
+  max-width: fit-content;
   text-align: left;
   vertical-align: top;
   border-top: 1px solid #dddddd;
@@ -2040,6 +2041,7 @@ table {
 .table-condensed th,
 .table-condensed td {
   padding: 4px 5px;
+  max-width: fit-content;
 }
 
 .table-bordered {
@@ -6311,9 +6313,10 @@ a.badge:focus {
 .Left-body{
     float               : left;
     width               : 615px;
-    margin-left         : 10px;
-    background           : rgba(255,255,255,0.8);
-    margin-top          : 15px;
+    margin-left         : 5px;
+    margin-right        : 5px;
+    background          : rgba(255,255,255,0.8);
+    margin-top          : 5px;
     font-family         :  Arial,Verdana,sans-serif;
     -webkit-box-shadow   : 0 0 12px gray;
         -moz-box-shadow : 0 0 12px gray;

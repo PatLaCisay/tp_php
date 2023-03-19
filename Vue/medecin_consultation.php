@@ -13,14 +13,14 @@
    else{
         $Util = new Util();
         $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
-        $Medecin = new Secretaire();
+        $Medecin = new Medecin();
         $Medecin = $Utilisateur->getMedecin();
 
-        $all_rdvs = $Util->findAllRdv();
-        $rdvs=[];
-        foreach($all_rdvs as $rdv){
-            if($rdv["Id_Medecin"]==$Medecin->getId_Medecin()){
-                array_push($rdvs, $rdv);
+        $all_consultations = $Util->findAllConsultation();
+        $consultations=[];
+        foreach($all_consultations as $consultation){
+            if($consultation["Id_Medecin"]==$Medecin->getId_Medecin()){
+                array_push($consultations, $consultation);
             }
         }
 
@@ -71,26 +71,25 @@
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
-                                Liste des rendez-vous à venir 
+                                Mes consultations
                             </div>
                             <div class="Left-body">
                                 <table class="table table-striped" >
                                     <tr>
                                         <th scope="col">Date</th>
                                         <th scope="col">Patient</th>
-                                        <th scope="col">Salle</th>
+                                        <th scope="col">Compte-rendu</th>
                                     </tr>
                                     <?php
-                                    if($rdvs)
+                                    if($consultations)
                                         {
-                                            foreach( $rdvs as $rdv){
-                                                $salle = $Util->getSalleById($rdv['Id_Salle'])->getNom();
-                                                $patient = $Util->getPatientById($rdv['Id_Patient'])->getNom_Patient(). " ".$Util->getPatientById($rdv['Id_Patient'])->getPrenom_Patient();
+                                            foreach( $consultations as $consultation){
+                                                $patient = $Util->getPatientById($consultation['Id_Patient'])->getNom_Patient(). " ".$Util->getPatientById($consultation['Id_Patient'])->getPrenom_Patient();
 
                                                 echo "<tr>";
-                                                    echo "<td>". $rdv["Date_Rendez_Vous"]."</td>";
+                                                    echo "<td>". $consultation["Date_Consultation"]."</td>";
                                                     echo "<td>". $patient."</td>";
-                                                    echo "<td>". $salle."</td>";
+                                                    echo "<td>". $consultation["Compte_Rendu_Consultation"]."</td>";
                                                 echo "</tr>";
                                                 
                                             }
@@ -112,15 +111,16 @@
                                 
                             </div>
                             <div class="Social-NW-body">
+
                             <a href="../Vue/medecin_patients.php"><i class="icon-user"></i> Mes patients</a>
-                            <br/>
+                                <br/>
                                 <a href="../Vue/medecin_display.php"><i class="icon-calendar"></i> Mes rendez-vous</a>
                                 <hr/>
                                 <a href="../Vue/medecin_consultation.php"><i class="icon-list"></i> Mes consultations</a>
                                 <br/>
                                 <a href="../Vue/ajout_consultation.php"><i class="icon-plus"></i> Nouvelle consultation</a>
                                 </hr>
-                                </br>
+                                    </br>
                                 <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se déconnecter </a>
                                 <br/>
                                 

@@ -1,19 +1,19 @@
-   <?php
+<?php
     require('../Controller/Util.php');
     $Util = new Util();
     
     if(isset($_POST["date"]) &&
-        isset($_POST["salle"])&&
+        isset($_POST["medecin"])&&
         isset($_POST["patient"])&&
-        isset($_POST["medecin"])
+        isset($_POST["cr"])
         )
     {
         
-        $Query = "INSERT INTO rendez_vous (Date_Rendez_Vous, Id_Patient, Id_Medecin, Id_Salle ) VALUES"
+        $Query = "INSERT INTO rendez_vous (Date_Rendez_Vous,Compte_Rendu_Consultation, Id_Patient, Id_Medecin ) VALUES"
                                    ."('".$_POST["date"]."',"
+                                   ."'".$_POST["cr"]."',"
                                    ."'".$_POST["patient"]."',"
-                                   ."'".$_POST["medecin"]."',"
-                                   ."'".$_POST["salle"]. "')";
+                                   ."'".$_POST["medecin"]. "')";
         
         $Util->dbConnection();
         

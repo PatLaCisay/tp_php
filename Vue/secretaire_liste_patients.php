@@ -1,19 +1,22 @@
 <?php
         require('../Controller/Util.php');
-
         session_start();
-        $Util = new Util();
-        $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
-        $Secretaire = new Secretaire();
-        $Secretaire = $Utilisateur->getSecretaire();
-        $_SESSION["patients"] = $Util->findAllPatients();
 
-        if($_SESSION['patients'])
-        {
-            $patients=$_SESSION['patients'];
-        }else{
-            $patiens=null;
-        }
+        /*-- Verification si le formulaire d'authenfication a été bien saisie --*/
+       if($_SESSION["acces"]!='y')
+       {
+                /*-- Redirection vers la page d'authentification --*/
+               header("location:index.php");
+       }
+       else
+       {
+            $Util = new Util();
+            $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
+            $Secretaire = new Secretaire();
+            $Secretaire = $Utilisateur->getSecretaire();
+            $patients = $Util->findAllPatients();
+       }
+
 ?>
 <html>
     <head>

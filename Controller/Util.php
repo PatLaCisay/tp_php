@@ -12,6 +12,7 @@ include '../Model/Medecin.php';
 include '../Model/Salle.php';
 include '../Model/RendezVous.php';
 include '../Model/Patient.php';
+include '../Model/Consultation.php';
 
 class Util {
     
@@ -193,6 +194,42 @@ class Util {
         }
         return $Medecin;
     }
+   /**
+     * 
+     * @param type $Id
+     * @return \Medecin
+     */
+    public function getPatientByID($Id){
+        $Patient = NULL;
+        
+        $Query = "SELECT * FROM patient WHERE Id_Patient='".$Id."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_Id = $ligne['Id_Patient'];
+                    
+                    if(($Id == $_Id))
+                    {
+                         $Patient = new Patient();
+                         $Patient->Id_Patient = $ligne['Id_Patient'];
+                         $Patient->Nom_Patient = $ligne['Nom_Patient'];
+                         $Patient->Prenom_Patient = $ligne['Prenom_Patient'];
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $Patient;
+    }
 
     /**
      * 
@@ -254,8 +291,33 @@ class Util {
 
     }
 
+
+    public function findMyPatients($id){
+        $patients=[];
+
+        $Query = "SELECT * FROM patient WHERE Id_Medecin='".$id."'";
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    array_push($patients,$ligne);
+                }
+
+            }
+        
+        }
+        return $patients;
+
+
+    }
+
     public function findAllRdv(){
-        $rdv=[];
+        $rdvs=[];
 
         $Query = "SELECT * FROM rendez_vous";
         $this->dbConnection();
@@ -267,15 +329,35 @@ class Util {
         else{
             if(($result = $this->mysqli->query($Query))){
                 while($ligne = $result->fetch_assoc()){
-                    array_push($rdv,$ligne);
+                    array_push($rdvs,$ligne);
                 }
 
             }
         
         }
-        return $rdv;
+        return $rdvs;
+    }
 
+    public function findAllConsultation(){
+        $consultations=[];
 
+        $Query = "SELECT * FROM consultation";
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    array_push($consultations,$ligne);
+                }
+
+            }
+        
+        }
+        return $consultations;
     }
     public function findAllMedecins(){
         $medecins=[];
