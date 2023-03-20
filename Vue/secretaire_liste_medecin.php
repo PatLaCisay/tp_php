@@ -1,35 +1,29 @@
 <?php
+        require('../Controller/Util.php');
+        session_start();
 
-   require('../Controller/Util.php');
-   
-   
-   session_start();
-    /*-- Verification si le formulaire d'authenfication a été bien saisie --*/
-   if($_SESSION["acces"]!='y')
-   {
-            /*-- Redirection vers la page d'authentification --*/
-           header("location:index.php");
-   }
-   else{
-        $Util = new Util();
-        $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
-        $Medecin = new Secretaire();
-        $Medecin = $Utilisateur->getMedecin();
-        $patients= $Util->findMyPatients($Medecin->getId_Medecin());
-   }
-   
+        /*-- Verification si le formulaire d'authenfication a été bien saisie --*/
+       if($_SESSION["acces"]!='y')
+       {
+                /*-- Redirection vers la page d'authentification --*/
+               header("location:index.php");
+       }
+       else
+       {
+            $Util = new Util();
+            $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
+            $Secretaire = new Secretaire();
+            $Secretaire = $Utilisateur->getSecretaire();
+            $medecins = $Util->findAllMedecins();
+       }
 
-    
 ?>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-               <?php
-                    
-                    echo $Medecin->getNom_Medecin().' '.$Medecin->getPrenom_Medecin();
-               ?>
+            Liste medecins
         </title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="js/jquery/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
@@ -53,38 +47,38 @@
                             </div>
                         </div>
                         <div class="Horizontal-menu">
-                     
+                         
                                 <h4>
                                     <?php
-                                        echo $Medecin->getNom_Medecin().' '.$Medecin->getPrenom_Medecin();
+                                        echo $Secretaire->getNom_Secretaire().' '.$Secretaire->getPrenom_Secretaire();
                                    ?>
                                 </h4>
-    
+                            
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
-                                Mes patients 
+                                Liste medecins
                             </div>
                             <div class="infos">
                                 
                             </div>
                             <div class="en_bref">
-                                <ul class="list-group">
+                                <div>
+                                    <ul class="list-group">
                                         <?php
-                                            if($patients)
+                                            if($medecins)
                                             {
-                                                foreach( $patients as $patient){
+                                                foreach( $medecins as $medecin){
                                                     echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</p>");
+                                                        echo ("<p>".$medecin['Nom_medecin']." ".$medecin['Prenom_medecin']."</p>");
                                                     echo ("</li>");
                                                     
                                                 }
                                             }
                                         ?>
-                                    </ul> 
+                                    </ul>
+                                </div>
                             </div>
-                            
-                            
                         </div>
                     <div class="Right-body">
                         <div class="About-us">
@@ -92,21 +86,22 @@
                                 
                             </div>
                             <div class="Social-NW-body">
-                            <br/>
-                                <a href="../Vue/medecin_display.php"><i class="icon-calendar"></i> Mes rendez-vous</a>
+                                <a href="../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
+                                    <br/>
+                                <a href="../Controller/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
+                                <br/>
+                                <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>
-                                <a href="../Vue/medecin_consultation.php"><i class="icon-list"></i> Mes consultations</a>
+                                <a href="../Controller/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
                                 <br/>
-                                <a href="../Vue/ajout_consultation.php"><i class="icon-plus"></i> Nouvelle consultation</a>
-                                </hr>
-                                </br>
-                                <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se déconnecter </a>
-                                <br/>
+                                <a href="../Vue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
+                                <hr/>
+                                <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
+                                
                             </div>
                         </div>
                         
                         
-                    </div>
                     </div>
                     <div class="footer">
                         &COPY; Cabinet Médical 2021
@@ -117,7 +112,7 @@
         <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
     </body>
-    
-    
-    
 </html>
+
+
+
