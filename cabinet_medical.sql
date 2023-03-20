@@ -195,10 +195,7 @@ INSERT INTO `patient` (`Id_Patient`, `Nom_Patient`, `Prenom_Patient`, `Sexe_Pati
 (1070, 'Cordie Kuvalis', 'Adam', 'Ms.', '6080108010 Tyrel Isle', 'Port Fanny', 'occaecati', '20090-100-', 'aut', '31060103800', '10909010-0', NULL),
 (1080, 'Dr. Joe Howe', 'Lindsey', 'Dr.', '8054804 Josie Fork Apt. 4370', 'South Kameron', 'fugiat', '2002-03-10', 'harum', '', '20103-03-0', NULL),
 (1090, 'Jordi Wyman', 'Marvin', 'Mrs.', '36070 Willms Course Apt. 90460', 'Hyattmouth', 'et', '10908060-0', 'reiciendis', '410', '20010-03-2', NULL),
-(1091, 'Barreau', 'Lucas', 'Homme', NULL, 'Athis-Mons', '91200', '2001-04-07', 'Celibataire', '+984', '', NULL),
-(1092, 'Barreau', 'Lucas', 'Homme', NULL, 'Athis-Mons', '91', '2001-04-07', 'Celibataire', 'azdadsscezcq', '2023-02-21', NULL),
-(1093, 'Barreau', 'Lucas', 'Homme', NULL, 'Athis-Mons', '91', '2001-04-07', 'Celibataire', '948613', '2023-03-18', NULL),
-(1094, 'Barreau', 'Lucas', 'Homme', NULL, 'Athis-Mons', '91', '2001-04-07', 'Celibataire', '948613', '2023-03-18', NULL);
+(1091, 'Barreau', 'Lucas', 'Homme', "maison", 'Athis-Mons', '91200', '2001-04-07', 'Celibataire', '+984', '', NULL);
 
 -- --------------------------------------------------------
 
