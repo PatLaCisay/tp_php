@@ -78,7 +78,7 @@
                                             if($rdvs)
                                             {
                                                 foreach( $rdvs as $rdv){
-                                                    $salle = $Util->getSalleById($rdv['Id_Salle'])->getNom();
+                                                    $salle = $Util->getSalleById($rdv['Id_Salle'])["nom"];
                                                     echo ("<li class='list-group-item'>");
                                                         echo ("<p>".$rdv['Date_Rendez_Vous']." / ".$salle."</p>");
                                                     echo ("</li>");
@@ -101,7 +101,7 @@
                             <div class="Social-NW-body">
                                 <a href="../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
                                 <br/>
-                                <a href="../Controller/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
+                                <a href="../Vue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
                                 <br/>
                                 <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>

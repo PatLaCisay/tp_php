@@ -22,7 +22,7 @@ class Patient {
     public $Situation_Familiale_Patient;
     public $Affiliation_Mutuelle;
     public $Date_Creation_Dossier;
-    public $Id_medecin;
+    public $Id_Medecin;
     
     /**
      * 
@@ -44,7 +44,7 @@ class Patient {
      * @return type
      */
     public function getId_Medecin() {
-        return $this->Id_medecin;
+        return $this->Id_Medecin;
     }
 
     /**
@@ -127,13 +127,6 @@ class Patient {
         return $this->Date_Creation_Dossier;
     }
 
-    /**
-     * 
-     * @param type $Id_Patient
-     */
-    public function setId_Patient($Id_Patient) {
-        $this->Id_Patient = $Id_Patient;
-    }
 
     /**
      * 

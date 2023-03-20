@@ -9,7 +9,7 @@
                header("location:index.php");
        }
        else
-       {
+       {    
             $Util = new Util();
             $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
             $Secretaire = new Secretaire();
@@ -18,6 +18,7 @@
        }
 
 ?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -70,7 +71,7 @@
                                             {
                                                 foreach( $medecins as $medecin){
                                                     echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$medecin['Nom_medecin']." ".$medecin['Prenom_medecin']."</p>");
+                                                        echo ("<p>".$medecin['Nom_Medecin']." ".$medecin['Prenom_Medecin']."</p>");
                                                     echo ("</li>");
                                                     
                                                 }
@@ -88,7 +89,7 @@
                             <div class="Social-NW-body">
                                 <a href="../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
                                     <br/>
-                                <a href="../Controller/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
+                                <a href="../Vue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
                                 <br/>
                                 <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>

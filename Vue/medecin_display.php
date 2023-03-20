@@ -84,8 +84,8 @@
                                     if($rdvs)
                                         {
                                             foreach( $rdvs as $rdv){
-                                                $salle = $Util->getSalleById($rdv['Id_Salle'])->getNom();
-                                                $patient = $Util->getPatientById($rdv['Id_Patient'])->getNom_Patient(). " ".$Util->getPatientById($rdv['Id_Patient'])->getPrenom_Patient();
+                                                $salle = $Util->getSalleById($rdv['Id_Salle'])["nom"];
+                                                $patient = $Util->getPatientById($rdv['Id_Patient'])["Nom_Patient"]. " ".$Util->getPatientById($rdv['Id_Patient'])["Prenom_Patient"];
 
                                                 echo "<tr>";
                                                     echo "<td>". $rdv["Date_Rendez_Vous"]."</td>";

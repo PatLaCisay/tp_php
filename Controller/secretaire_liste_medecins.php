@@ -1,3 +1,5 @@
 <?php
 
-header("location : ../Vue/secretaire_liste_patients.php");
+header("location : ../Vue/secretaire_liste_medecins.php");
+
+?>

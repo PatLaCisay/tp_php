@@ -218,9 +218,7 @@ class Util {
                     if(($Id == $_Id))
                     {
                          $Patient = new Patient();
-                         $Patient->Id_Patient = $ligne['Id_Patient'];
-                         $Patient->Nom_Patient = $ligne['Nom_Patient'];
-                         $Patient->Prenom_Patient = $ligne['Prenom_Patient'];
+                         $Patient=$ligne;
                          break;
                     }
                 }
@@ -234,7 +232,7 @@ class Util {
     /**
      * 
      * @param type $Id
-     * @return \Integer
+     * @return \Salle
      */
     public function getSalleById($Id){
         $Salle = NULL;
@@ -255,8 +253,7 @@ class Util {
                     if(($Id == $_Id))
                     {
                          $Salle = new Salle();
-                         $Salle->Id = $ligne['id'];
-                         $Salle->Nom = $ligne['nom'];
+                         $Salle= $ligne;
                          break;
                     }
                 }
@@ -416,3 +413,5 @@ class Util {
     }
        
 }
+
+?>

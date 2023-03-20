@@ -32,3 +32,5 @@
     }else{
         header("location: ../Vue/ajout_rdv.php");
     }
+
+?>

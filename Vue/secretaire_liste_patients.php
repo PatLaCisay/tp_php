@@ -70,7 +70,7 @@
                                             {
                                                 foreach( $patients as $patient){
                                                     echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</p>");
+                                                        echo ("<a href='../Vue/fiche_patient.php/?id=".$patient['Id_Patient']."' >".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</a>");
                                                     echo ("</li>");
                                                     
                                                 }
@@ -89,7 +89,7 @@
                                 
                                 <a href="../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
                                     <br/>
-                                <a href="../Controller/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
+                                <a href="../Vue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
                                 <br/>
                                 <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
                                 <hr/>
@@ -111,8 +111,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
+
     </body>
 </html>
 
