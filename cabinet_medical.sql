@@ -40,8 +40,8 @@ CREATE TABLE `consultation` (
 --
 
 INSERT INTO `consultation` (`Id_Consultation`, `Date_Consultation`, `Compte_Rendu_Consultation`, `Id_Patient`, `Id_Medecin`) VALUES
-(1, '2023-02-24', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 80, 1),
-(2, '2023-02-28', 'ddddddddddddddddddddddddddddddddddddddddd', 24, 1);
+(1, '2023-02-24', 'aaaaa aa aaaaaaa aa aa a aaaaaaaaa a aaa aaaaaaaaa aa aaaa aaaaaa', 80, 1),
+(2, '2023-02-28', 'ddd d ddd ddd ddddddddd d d ddddddddd dd dddddd ddd', 24, 1);
 
 -- --------------------------------------------------------
 
