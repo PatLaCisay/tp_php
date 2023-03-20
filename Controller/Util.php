@@ -194,6 +194,7 @@ class Util {
         }
         return $Medecin;
     }
+    
    /**
      * 
      * @param type $Id

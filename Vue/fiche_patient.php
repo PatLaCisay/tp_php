@@ -16,12 +16,13 @@
             $Secretaire = $Utilisateur->getSecretaire();
             $medecins = $Util->findAllMedecins();
             $patient = $Util->getPatientById($_GET['id']);
-            
-            $medecin = "Pas de medecin traitant";
+            $medecin=new Medecin();
+            $pasMedecin = "Pas de medecin traitant";
             
             foreach($medecins as $medecinSelect){
                 if($patient["id_medecin"]==$medecinSelect["Id_Medecin"]){
-                    $medecin ="Dr.". $medecinSelect["Nom_Medecin"];
+                    $medecin =$medecinSelect;
+                    $pasMedecin = null;
                     break;
                 }
             }
@@ -34,7 +35,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            Fiche patient
+            <?php echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"]; ?>
         </title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="js/jquery/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
@@ -68,7 +69,7 @@
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
-                                Fiche patient
+                                Fiche patient:  <?php echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"]; ?>
                             </div>
                             <div class="Left-body">
                                 
@@ -115,31 +116,40 @@
                                     </tr>
                                     <tr>
                                         <th scope="row">Medecin traitant</th>
-                                        <td ><?php echo $medecin; ?></td>
+                                        <td ><?php
+                                                try{
+                                                    
+                                                    echo "<a href='../fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>".$medecin['Prenom_Medecin']." ".$medecin['Prenom_Medecin']."</a>" ;
+                                                }catch (Error $e){
+                                                    echo "Pas de medecin traitant";  
+                                                }
+                                            ?>
+                                        </td>
                                     </tr>
 
                                 </table>
                                 
                             </div>
                         </div>
-                    <div class="Right-body">
-                        <div class="About-us">
-                            <div class="Social-NW-head">
-                                
-                            </div>
-                            <div class="Social-NW-body">
-                                <a href="/../tp_php/Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
+                        <div class="Right-body">
+                            <div class="About-us">
+                                <div class="Social-NW-head">
+                                    
+                                </div>
+                                <div class="Social-NW-body">
+                                    <a href="/../tp_php/Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
+                                        <br/>
+                                    <a href="/../tp_phpVue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
                                     <br/>
-                                <a href="/../tp_phpVue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
-                                <br/>
-                                <a href="/../tp_phpVue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
-                                <hr/>
-                                <a href="/../tp_phpController/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
-                                <br/>
-                                <a href="/../tp_phpVue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
-                                <hr/>
-                                <a href="/../tp_phpController/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
-                                
+                                    <a href="/../tp_phpVue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
+                                    <hr/>
+                                    <a href="/../tp_phpController/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
+                                    <br/>
+                                    <a href="/../tp_phpVue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
+                                    <hr/>
+                                    <a href="/../tp_php/Controller/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
+                                    
+                                </div>
                             </div>
                         </div>
                         
@@ -151,7 +161,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
     </body>
 </html>

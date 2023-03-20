@@ -71,7 +71,7 @@
                                             {
                                                 foreach( $medecins as $medecin){
                                                     echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$medecin['Nom_Medecin']." ".$medecin['Prenom_Medecin']."</p>");
+                                                        echo ("<a href='../Vue/fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>".$medecin['Prenom_Medecin']." ".$medecin['Prenom_Medecin']."</a>");
                                                     echo ("</li>");
                                                     
                                                 }
@@ -88,7 +88,7 @@
                             </div>
                             <div class="Social-NW-body">
                                 <a href="../Controller/secretaire_liste_patients.php"><i class="icon-user"></i> Liste des patients</a>
-                                    <br/>
+                                <br/>
                                 <a href="../Vue/secretaire_liste_medecins.php"><i class="icon-user"></i> Liste des medecins</a>
                                 <br/>
                                 <a href="../Vue/secretaire_display.php"><i class="icon-calendar"></i> Liste des rendez-vous</a>
@@ -101,8 +101,6 @@
                                 
                             </div>
                         </div>
-                        
-                        
                     </div>
                     <div class="footer">
                         &COPY; Cabinet Médical 2021
