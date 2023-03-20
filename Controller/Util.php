@@ -380,7 +380,6 @@ class Util {
         }
         return $medecins;
 
-
     }
 
     public function findAllSalles(){

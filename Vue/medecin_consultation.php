@@ -120,7 +120,7 @@
                                 <br/>
                                 <a href="../Vue/ajout_consultation.php"><i class="icon-plus"></i> Nouvelle consultation</a>
                                 </hr>
-                                    </br>
+                                </br>
                                 <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se déconnecter </a>
                                 <br/>
                                 
