@@ -73,20 +73,32 @@
                             <div class="en_bref">
                                 
                             <div>
-                                    <ul class="list-group">
+                                    <table class="table table-striped" >
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Salle</th>
+                                            <th scope="col">Patient</th>
+                                            <th scope="col">Medecin</th>
+                                        </tr>
                                         <?php
                                             if($rdvs)
                                             {
                                                 foreach( $rdvs as $rdv){
                                                     $salle = $Util->getSalleById($rdv['Id_Salle'])["nom"];
-                                                    echo ("<li class='list-group-item'>");
-                                                        echo ("<p>".$rdv['Date_Rendez_Vous']." / ".$salle."</p>");
-                                                    echo ("</li>");
+                                                    echo ("<tr>");
+                                                        echo ("<td>".$rdv['Date_Rendez_Vous']."</td>");
+                                                        echo ("<td>".$salle."</td>");
+                                                        $patient=$Util->getPatientByID($rdv["Id_Patient"]);
+                                                        echo ("<td><a href='../Vue/fiche_patient.php/?id=".$patient['Id_Patient']."' >".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</a></td>");
+                                                        $medecin=$Util->getMedecinByID($rdv["Id_Medecin"]);
+                                                        echo ("<td><a href='../Vue/fiche_medecin.php/?id=".$medecin->getId_Medecin()."' >".$medecin->getNom_Medecin()." ".$medecin->getPrenom_Medecin()."</a></td>");
+
+                                                    echo ("</tr>");
                                                     
                                                 }
                                             }
                                         ?>
-                                    </ul>
+                                    </table>
                                 </div>                                
                                 
                             </div>

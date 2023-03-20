@@ -317,7 +317,7 @@ class Util {
     public function findAllRdv(){
         $rdvs=[];
 
-        $Query = "SELECT * FROM rendez_vous";
+        $Query = "SELECT * FROM rendez_vous ORDER BY Date_Rendez_Vous DESC";
         $this->dbConnection();
         
         if ($this->mysqli->connect_error) {
@@ -339,7 +339,7 @@ class Util {
     public function findAllConsultation(){
         $consultations=[];
 
-        $Query = "SELECT * FROM consultation";
+        $Query = "SELECT * FROM consultation ORDER BY Date_Consultation DESC";
         $this->dbConnection();
         
         if ($this->mysqli->connect_error) {

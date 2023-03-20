@@ -64,19 +64,26 @@
                             </div>
                             <div class="en_bref">
                                 <div>
-                                    <ul class="list-group">
+                                    <table class="table table-striped" >
+                                        <tr>
+                                            <th scope="col">Patient</th>
+                                            <th scope="col">Adresse</th>
+                                            <th scope="col">Mutuelle</th>
+                                        </tr>
                                         <?php
                                             if($patients)
                                             {
                                                 foreach( $patients as $patient){
-                                                    echo ("<li class='list-group-item'>");
-                                                        echo ("<a href='../Vue/fiche_patient.php/?id=".$patient['Id_Patient']."' >".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</a>");
-                                                    echo ("</li>");
+                                                    echo ("<tr>");
+                                                        echo ("<td><a href='../Vue/fiche_patient.php/?id=".$patient['Id_Patient']."' >".$patient['Nom_Patient']." ".$patient['Prenom_Patient']."</a></td>");
+                                                        echo ("<td>".$patient['Adresse_Patient']."</td>");
+                                                        echo ("<td>".$patient['Affiliation_Mutuelle']."</td>");
+                                                    echo ("</tr>");
                                                     
                                                 }
                                             }
                                         ?>
-                                    </ul>
+                                    </table>
                                 </div>
                             </div>
                         </div>

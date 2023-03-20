@@ -10,7 +10,8 @@
         $Utilisateur = $Util->getUtilisateur($login, $pwd);
         
         if ($Utilisateur!=NULL){
-            
+            $today= new DateTime();
+            $Utilisateur->setLast_Login($today->format("d-m-Y"));
             session_start();
             $_SESSION["acces"]='y';
             $_SESSION["ID_CONNECTED_USER"] = $Utilisateur->getId_Utilisateur();

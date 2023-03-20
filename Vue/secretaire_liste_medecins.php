@@ -65,19 +65,19 @@
                             </div>
                             <div class="en_bref">
                                 <div>
-                                    <ul class="list-group">
+                                    <table class="table table-striped" >
                                         <?php
                                             if($medecins)
                                             {
+                                                
                                                 foreach( $medecins as $medecin){
-                                                    echo ("<li class='list-group-item'>");
-                                                        echo ("<a href='../Vue/fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>".$medecin['Prenom_Medecin']." ".$medecin['Prenom_Medecin']."</a>");
-                                                    echo ("</li>");
-                                                    
+                                                    echo("<tr>");
+                                                    echo ("<td><a href='../Vue/fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>".$medecin['Prenom_Medecin']." ".$medecin['Prenom_Medecin']."</a></td>");
+                                                    echo("</tr>");
                                                 }
                                             }
                                         ?>
-                                    </ul>
+                                    </table>
                                 </div>
                             </div>
                         </div>
