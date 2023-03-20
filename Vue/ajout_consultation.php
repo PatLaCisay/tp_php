@@ -17,6 +17,10 @@
         $Medecin = new Medecin();
         $Medecin = $Utilisateur->getMedecin();
         $patients= $Util->findMyPatients($Medecin->getId_Medecin());
+        $consultation=null;
+        if(isset($_GET['id'])){
+            $consultation = $Util->getConsultationById($_GET['id']);
+        }
    }
 
     
@@ -63,36 +67,59 @@
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
-                                Ajouter un nouveau patient 
+                                Creer/modifier une consultation 
                             </div>
                             <div class="infos">
                                 
                             </div>
                             <div class="en_bref">
-                            <form action="../Controller/ajout_consultation.php" method="post">
+                                <form action="../Controller/ajout_consultation.php" method="post">
                                     <br/>
-                                    <label>Date :</label>
-                                        <input class="textfield_form" type="date" name="date"/><br/>
+                                    <?php
+                                    if($consultation==null){
+                                        echo "<label>Date :</label>";
+                                            echo "<input class='textfield_form' type='date' name='date'/><br/>
+                                        <label>Patient :</label>
+                                            <select class='form-control' name='patient'>";
+                                            foreach($patients as $patient){ 
+                                                    echo '<option value="'.$patient["Id_Patient"].'">';
+                                                    echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"];
+                                                    echo'</option>';
+                                                }
+                                            echo "</select>
+                                        <label>Compte-rendu :</label>
+                                        <textarea class='form-control' name='cr' rows='4' cols='50' ></textarea>
+                                        <label>Medecin :</label>";
+
+                                        echo '<input type="number" readonly class="d-none" name="medecin" value="'.$Medecin->getId_Medecin().'">';
+                                    }else{
+                                        echo "<label>Date :</label>";
+                                        echo "<input class='textfield_form' type='date' value=".$consultation["Date_Consultation"]." name='date'/><br/>
                                     <label>Patient :</label>
-                                        <select class="form-control" name="patient">
-                                        <?php foreach($patients as $patient){ 
+                                        <select class='form-control' name='patient'>";
+                                            $patientConsultation= $Util->getPatientByID($consultation["Id_Patient"]);
+
+                                            echo '<option value="'.$patientConsultation["Id_Patient"].'">';
+                                            echo $patientConsultation["Nom_Patient"]." ".$patientConsultation["Prenom_Patient"];
+                                            echo'</option>';
+                                        foreach($patients as $patient){ 
                                                 echo '<option value="'.$patient["Id_Patient"].'">';
                                                 echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"];
                                                 echo'</option>';
                                             }
-                                            ?>
-                                        </select>
+                                        echo "</select>
                                     <label>Compte-rendu :</label>
-                                    <textarea class="form-control" name="cr" rows="4" cols="50" ></textarea>
-                                    <label>Medecin :</label>
-                                    <input type="number" readonly class="d-none" name="medecin" value=<?php echo $Medecin->getId_Medecin(); ?>>
+                                    <textarea class='form-control' name='cr' rows='4' cols='50' >".$consultation["Compte_Rendu_Consultation"]."</textarea>
+                                    <label>Medecin :</label>";
+                                    echo '<input type="number" readonly class="d-none" name="id" value="'.$_GET["id"].'">';            
+                                    echo '<input type="number" readonly class="d-none" name="medecin" value="'.$Medecin->getId_Medecin().'">';
+                                    }        
+                                    ?>
                                     <label></label>
                                     <input type="reset" name="effacer" value = "Effacer"/>
                                     <input type="submit" name="valider" value = "Ajouter"/>
                                 </form>
                             </div>
-                            
-                            
                         </div>
                     <div class="Right-body">
                         <div class="About-us">

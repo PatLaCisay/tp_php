@@ -14,7 +14,15 @@
             $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
             $Secretaire = new Secretaire();
             $Secretaire = $Utilisateur->getSecretaire();
-            $patients = $Util->findAllPatients();
+            $patients=[];
+            if(isset($_POST["chercher_patient"])){
+                
+                array_push($patients, $Util->getPatientByName($_POST["chercher_patient"]));
+                
+            }else{
+                $patients = $Util->findAllPatients();
+            }
+            
        }
 
 ?>
@@ -47,21 +55,35 @@
                             </div>
                         </div>
                         <div class="Horizontal-menu">
-                         
                                 <h4>
                                     <?php
                                         echo $Secretaire->getNom_Secretaire().' '.$Secretaire->getPrenom_Secretaire();
                                    ?>
                                 </h4>
-                            
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
                                 Liste patients
                             </div>
                             <div class="infos">
-                                
+                                <form action="../Vue/secretaire_liste_patients.php" method="post">
+                                    <br/>
+                                    <label>Patient :</label>
+                                        <select class="form-control" name="chercher_patient">
+                                            <option value="" disabled selected>Selectionner un patient</option>
+                                        <?php foreach($patients as $patient){ 
+                                                echo '<option value="'.$patient["Nom_Patient"].'">';
+                                                echo $patient["Nom_Patient"]." ".$patient["Prenom_Patient"];
+                                                echo'</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        </br>
+                                    <input type= "reset" name="effacer" id="reset" value = "Reset" onclick="rtn()" />
+                                    <input type="submit" name="valider" id="checrcher" value ="Chercher" />
+                                </form>                                
                             </div>
+
                             <div class="en_bref">
                                 <div>
                                     <table class="table table-striped" >
@@ -102,7 +124,7 @@
                                 <hr/>
                                 <a href="../Controller/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
                                 <br/>
-                                <a href="../Vue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
+                                <a href="../Vue/ajout_patient.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
                                 <hr/>
                                 <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
                                 
@@ -118,7 +140,11 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            function rtn() {
+                window.history.back();
+            }
+        </script>
     </body>
 </html>
 

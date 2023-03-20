@@ -194,11 +194,44 @@ class Util {
         }
         return $Medecin;
     }
-    
-   /**
+    /**
      * 
      * @param type $Id
      * @return \Medecin
+     */
+    public function getMedecinByName($name){
+        $Medecin = NULL;
+        
+        $Query = "SELECT * FROM `medecin` WHERE `Nom_Medecin`='".$name."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_name = $ligne['Nom_Medecin'];
+                    
+                    if(($name == $_name))
+                    {
+                         $Medecin = new Medecin();
+                         $Medecin=$ligne;
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $Medecin;
+    }
+   /**
+     * 
+     * @param type $Id
+     * @return \Patient
      */
     public function getPatientByID($Id){
         $Patient = NULL;
@@ -229,7 +262,133 @@ class Util {
         }
         return $Patient;
     }
+       /**
+     * 
+     * @param type $Id
+     * @return \Consultation
+     */
+    public function getConsultationByID($Id){
+        $Consultation = NULL;
+        
+        $Query = "SELECT * FROM consultation WHERE Id_Consultation='".$Id."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_Id = $ligne['Id_Consultation'];
+                    
+                    if(($Id == $_Id))
+                    {
+                         $Consultation = new Consultation();
+                         $Consultation=$ligne;
+                         break;
+                    }
+                }
 
+            }
+        
+        }
+        return $Consultation;
+    }
+    /**
+     * 
+     * @param type $Id
+     * @return \Medecin
+     */
+    public function getPatientByName($name){
+        $Patient = NULL;
+        
+        $Query = "SELECT * FROM `patient` WHERE `Nom_Patient`='".$name."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_name = $ligne['Nom_Patient'];
+                    
+                    if(($name == $_name))
+                    {
+                         $Patient = new Patient();
+                         $Patient=$ligne;
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $Patient;
+    }
+    
+    public function getRdvByDate($date){
+        $rdv = NULL;
+        
+        $Query = "SELECT * FROM `rendez_vous` WHERE `Date_Rendez_Vous`='".$date."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_date = $ligne['Date_Rendez_Vous'];
+                    
+                    if(($date == $_date))
+                    {
+                         $rdv = new RendezVous();
+                         $rdv=$ligne;
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $rdv;
+    }
+    public function getConsultationByDate($date){
+        $rdv = NULL;
+        
+        $Query = "SELECT * FROM `consultation` WHERE `Date_Consultation`='".$date."'";
+        
+        $this->dbConnection();
+        
+        if ($this->mysqli->connect_error) {
+            die('Erreur de connexion ('.$this->mysqli->connect_errno.')'. $this->mysqli->connect_error);
+        }
+        
+        else{
+            if(($result = $this->mysqli->query($Query))){
+                while($ligne = $result->fetch_assoc()){
+                    $_date = $ligne['Date_Consultation'];
+                    
+                    if(($date == $_date))
+                    {
+                         $rdv = new Consultation();
+                         $rdv=$ligne;
+                         break;
+                    }
+                }
+
+            }
+        
+        }
+        return $rdv;
+    }
     /**
      * 
      * @param type $Id

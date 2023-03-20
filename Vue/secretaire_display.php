@@ -15,10 +15,18 @@
    {
         $Util = new Util();
         $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
-        $rdvs = $Util->findAllRdv();
+        $rdvs = [];
         $Secretaire = new Secretaire();
         $Secretaire = $Utilisateur->getSecretaire();
         $salle = new Salle();
+        $rdvs=[];
+        if(isset($_POST["chercher_rdv"])){
+            
+            array_push($rdvs, $Util->getRdvByDate($_POST["chercher_rdv"]));
+            
+        }else{
+            $rdvs = $Util->findAllRdv();
+        }
    }
 
     
@@ -54,21 +62,26 @@
 
                             </div>
                         </div>
-                        <div class="Horizontal-menu">
-                          
+                        <div class="Horizontal-menu">  
                                 <h4>
                                     <?php
                                         echo $Secretaire->getNom_Secretaire().' '.$Secretaire->getPrenom_Secretaire();
                                    ?>
                                 </h4>
-                       
                         </div>
                         <div class="Left-body">
                             <div class="Left-body-head">
                                 Liste des rendez-vous à venir 
                             </div>
                             <div class="infos">
-                                
+                                <form action="../Vue/secretaire_display.php" method="post">
+                                    <br/>
+                                    <label>Date RDV :</label>
+                                    <input type="date" class="form-control" name="chercher_rdv">
+                                    </br>
+                                    <input type= "reset" name="effacer" id="reset" value = "Reset" onclick="rtn()" />
+                                    <input type="submit" name="valider" id="checrcher" value ="Chercher" />
+                                </form> 
                             </div>
                             <div class="en_bref">
                                 
@@ -81,8 +94,8 @@
                                             <th scope="col">Medecin</th>
                                         </tr>
                                         <?php
-                                            if($rdvs)
-                                            {
+
+                                            if($rdvs[0]!=null){
                                                 foreach( $rdvs as $rdv){
                                                     $salle = $Util->getSalleById($rdv['Id_Salle'])["nom"];
                                                     echo ("<tr>");
@@ -96,7 +109,16 @@
                                                     echo ("</tr>");
                                                     
                                                 }
+                                            }else{
+                                                echo ("
+                                                <tr>
+                                                    <td colspan='4'>Aucun RDV trouvé </td>
+                                                </tr>"
+                                                );
                                             }
+                                        
+                                                
+                                        
                                         ?>
                                     </table>
                                 </div>                                
@@ -119,7 +141,7 @@
                                 <hr/>
                                 <a href="../Controller/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
                                 <br/>
-                                <a href="../Vue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
+                                <a href="../Vue/ajout_patient.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
                                 <hr/>
                                 <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
                             </div>
@@ -136,6 +158,11 @@
         </div>
         <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script>
+            function rtn() {
+                window.history.back();
+            }
+        </script>
     </body>
     
     

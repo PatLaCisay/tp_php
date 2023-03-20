@@ -18,11 +18,20 @@
 
         $all_consultations = $Util->findAllConsultation();
         $consultations=[];
-        foreach($all_consultations as $consultation){
-            if($consultation["Id_Medecin"]==$Medecin->getId_Medecin()){
-                array_push($consultations, $consultation);
+
+        if(isset($_POST["chercher_consultation"])){
+            
+            array_push($consultations, $Util->getConsultationByDate($_POST["chercher_consultation"]));
+            
+        }else{
+            foreach($all_consultations as $consultation){
+                if($consultation["Id_Medecin"]==$Medecin->getId_Medecin()){
+                    array_push($consultations, $consultation);
+                }
             }
         }
+
+
 
    }
    
@@ -74,26 +83,45 @@
                                 Mes consultations
                             </div>
                             <div class="Left-body">
+                                <div>
+                                <form action="../Vue/medecin_consultation.php" method="post">
+                                    <br/>
+                                    <label>Date Consultation :</label>
+                                    <input type="date" class="form-control" name="chercher_consultation">
+                                    </br>
+                                    <input type= "reset" name="effacer" id="reset" value = "Reset" onclick="rtn()" />
+                                    <input type="submit" name="valider" id="checrcher" value ="Chercher" />
+                                </form> 
+                                </div>
                                 <table class="table table-striped" >
                                     <tr>
                                         <th scope="col">Date</th>
                                         <th scope="col">Patient</th>
                                         <th scope="col">Compte-rendu</th>
+                                        <th scope="col"></th>
                                     </tr>
                                     <?php
-                                    if($consultations)
+                                    if($consultations[0]!=null)
                                         {
                                             foreach( $consultations as $consultation){
-                                                $patient = $Util->getPatientById($consultation['Id_Patient'])->getNom_Patient(). " ".$Util->getPatientById($consultation['Id_Patient'])->getPrenom_Patient();
+                                                $patient = $Util->getPatientById($consultation['Id_Patient'])["Nom_Patient"]. " ".$Util->getPatientById($consultation['Id_Patient'])["Prenom_Patient"];
 
                                                 echo "<tr>";
                                                     echo "<td>". $consultation["Date_Consultation"]."</td>";
                                                     echo "<td>". $patient."</td>";
                                                     echo "<td>". $consultation["Compte_Rendu_Consultation"]."</td>";
+                                                    echo "<td><a href='../Vue/ajout_consultation.php?id=".$consultation["Id_Consultation"]."'>Modifier</a></td>";
                                                 echo "</tr>";
                                                 
                                             }
                                         }
+                                    else{
+                                        echo ("
+                                        <tr>
+                                            <td colspan='4'>Aucune consultation trouvée </td>
+                                        </tr>"
+                                        );
+                                    }
                                     ?>
                                 </table>
                             </div>
@@ -138,5 +166,10 @@
         </div>
         <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script>
+            function rtn() {
+                window.history.back();
+            }
+        </script>
     </body>
 </html>

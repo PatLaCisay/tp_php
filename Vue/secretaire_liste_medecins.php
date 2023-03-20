@@ -14,7 +14,13 @@
             $Utilisateur = $Util->getUtilisateurById($_SESSION["ID_CONNECTED_USER"]);
             $Secretaire = new Secretaire();
             $Secretaire = $Utilisateur->getSecretaire();
-            $medecins = $Util->findAllMedecins();
+            $medecins=[];
+            if(isset($_POST["chercher_medecin"])){
+                array_push($medecins, $Util->getMedecinByName($_POST["chercher_medecin"]));
+                
+            }else{
+                $medecins = $Util->findAllMedecins();
+            }
        }
 
 ?>
@@ -60,26 +66,47 @@
                             <div class="Left-body-head">
                                 Liste medecins
                             </div>
+
                             <div class="infos">
-                                
+                                <form action="../Vue/secretaire_liste_medecins.php" method="post">
+                                    <br/>
+                                    <label>Medecin :</label>
+                                    <select class="form-control" name="chercher_medecin">
+                                        <option value="" disabled selected>Selectionner un medecin</option>
+                                        <?php foreach($medecins as $medecin){ 
+                                                echo '<option value="'.$medecin["Nom_Medecin"].'">';
+                                                echo $medecin["Nom_Medecin"]." ".$medecin["Prenom_Medecin"];
+                                                echo'</option>';
+                                            }
+                                        ?>
+                                    </select>
+                                    </br>
+                                    <input type= "reset" name="effacer" id="reset" value = "Reset" onclick="rtn()" />
+                                    <input type="submit" name="valider" id="checrcher" value ="Chercher" />
+                                </form>                                 
                             </div>
-                            <div class="en_bref">
                                 <div>
                                     <table class="table table-striped" >
+                                        <tr>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Prenom</th>
+                                            <th scope="col">Fiche</th>
+                                        </tr>
                                         <?php
-                                            if($medecins)
-                                            {
-                                                
-                                                foreach( $medecins as $medecin){
-                                                    echo("<tr>");
-                                                    echo ("<td><a href='../Vue/fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>".$medecin['Prenom_Medecin']." ".$medecin['Prenom_Medecin']."</a></td>");
-                                                    echo("</tr>");
-                                                }
+
+                                            foreach($medecins as $medecin){
+                                                echo("<tr>");
+                                                echo ("<td>".$medecin['Nom_Medecin']."</td>");
+                                                echo ("<td>".$medecin['Prenom_Medecin']."</td>");
+                                                echo ("<td><a href='../Vue/fiche_medecin.php/?id=".$medecin['Id_Medecin']."'>Fiche</a></td>");
+
+                                                echo("</tr>");
                                             }
+                                        
                                         ?>
                                     </table>
                                 </div>
-                            </div>
+                            
                         </div>
                     <div class="Right-body">
                         <div class="About-us">
@@ -95,7 +122,7 @@
                                 <hr/>
                                 <a href="../Controller/ajout_rdv.php"><i class="icon-plus-sign"></i> Ajouter un rendez-vous</a>
                                 <br/>
-                                <a href="../Vue/ajout_medecin.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
+                                <a href="../Vue/ajout_patient.php"><i class="icon-plus"></i> Nouvelle fiche patient</a>
                                 <hr/>
                                 <a href="../Controller/deconnexion.php"><i class="icon-off"></i> Se d&eacute;connecter</a>
                                 
@@ -110,6 +137,11 @@
         </div>
         <script type="text/javascript" src="bootstrap/js/bootstrap.js')}}"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script>
+            function rtn() {
+                window.history.back();
+            }
+        </script>
     </body>
 </html>
 
